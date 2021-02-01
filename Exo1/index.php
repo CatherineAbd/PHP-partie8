@@ -6,6 +6,14 @@
   </p>
   <hr>
   <p class="topicTitle">Résultats</p>
-    <p>Date courante :  <?= date("d/m/Y"); ?></p>
+  <p>Date courante :  <?= date("d/m/Y"); ?></p>
+
+  <!-- méthode objet -->
+  <?php
+    $date = new DateTime();
+    echo $date->format("j/m/y");
+    var_dump($date);
+    echo $date->date;
+  ?>
     
 <?php include "..\..\bottom_html.php"; ?>

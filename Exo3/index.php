@@ -10,7 +10,7 @@ Bonus : Le faire en français.<br>
   <p>Date courante : <?= date("l j F Y"); ?></p>
   
   <!-- in French -->
-  <?php setlocale(LC_TIME, ["fr"], ["fra"], ["fr_FR"]); ?>
-  <p>Date courante in french please ! : <?= strftime("%A %e %B %Y");?></p>
+  <?php setlocale(LC_TIME, ["fr"], ["fra"], ["fr_FR"], ["fr_FR.UTF-8"]); ?>
+  <p>Date courante in french please ! : <?= UTF8_encode(strftime("%A %e %B %Y"));?></p>
     
 <?php include "..\..\bottom_html.php"; ?>

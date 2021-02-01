@@ -14,6 +14,15 @@
       $dteLastDayFeb = getdate($timestampFirstMarch);
       echo "<br> Nb jours en février 2016 : " . $dteLastDayFeb["mday"];
     ?> -->
+
+    <!-- méthode objet -->
+    <?php 
+      $nbdays = cal_days_in_month(CAL_GREGORIAN, 2, 2016);
+      echo "<br> Nb jours en février 2016 avec cal_days_in_month : " . $nbdays;
+
+      $nico = date("t", mktime(0,0,0,2,1,2016));
+      echo "<br> $nico";
+    ?>
   </p>
     
 <?php include "..\..\bottom_html.php"; ?>
