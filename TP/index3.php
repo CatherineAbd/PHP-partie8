@@ -2,7 +2,7 @@
   include "..\\top_p8.php";
 
   function crTablePublicHolidayFix(){
-    $tabPublicHolidayFix = ["Jour de l'An" => "1/1", "Fête du travail" => "1/5","Victoire des alliés" => "8/5","Fête nationale" => "14/7", "Assomption" => "15/8", "Toussaint" => "1/11", "Armistice" => "11/11", "Noël" => "25/12"];
+    $tabPublicHolidayFix = ["1/1", "1/5", "8/5", "14/7", "15/8", "1/11", "11/11", "25/12"];
     return $tabPublicHolidayFix;
   }
 
@@ -12,20 +12,14 @@
     // nb days after 21 march
     $timestampEaster = strtotime("+" . easter_days($yearTst) . " days " . "21 march " . $yearTst);
     // Pâques, lundi de Pâques, ascension, Pentecôte et lundi de Pentecôte
-    if ($timestampDay == $timestampEaster) {
-      return "Pâques";
-    } elseif ($timestampDay == $timestampEaster + 86400) {
-      return "lundi de Pâques";
-    } elseif ($timestampDay == $timestampEaster + 86400*39) {
-      return "Ascension";
-    } elseif ($timestampDay == $timestampEaster + 86400*49) {
-      return "Pentecôte";
-    } elseif ($timestampDay == $timestampEaster + 86400*50) { // lundi de Pentecôte
-          return "lundi de Pentecôte";
-         } elseif (array_search($dayTst . "/" . $monthTst, $tabDays) != false) {// days fixed
-      return array_search($dayTst . "/" . $monthTst, $tabDays);
+    if (($timestampDay == $timestampEaster) || ($timestampDay == $timestampEaster + 86400) || // Pâques et lundi de Pâques
+        ($timestampDay == $timestampEaster + 86400*39) || // jeudi ascension
+        ($timestampDay == $timestampEaster + 86400*49) || // Pentecôte)
+        ($timestampDay == $timestampEaster + 86400*50) || // lundi de Pentecôte
+        (in_array($dayTst . "/" . $monthTst, $tabDays)) ) { // days fixed
+      return true;
     }
-    return "non férié";
+    return false;
   }
   
 ?>
@@ -149,12 +143,11 @@ En fonction des choix, afficher un calendrier comme celui-ci : <br>
             <?php
             // loop for columns
             for ($i=0; $i<7; $i++){
-              $dayPublicHoliday = isPublicHoliday($ctDay, $myMonth, $myYear, $tabDays);
               // empty cells
               if ((($i < $firstDayMonth - 1) && ($nbRow==1)) || ($ctDay>$nbDaysInMonth)){ ?>
                 <td class = "tabCellEmpty"></td>
-              <?php }elseif ( $dayPublicHoliday <> "non férié") { ?>
-                <td class = "tabCellPublicHoliday"><?= $ctDay . " " . $dayPublicHoliday?></td>
+              <?php }elseif (isPublicHoliday($ctDay, $myMonth, $myYear, $tabDays)) { ?>
+                <td class = "tabCellPublicHoliday"><?= $ctDay?></td>
                 <?php
                 $ctDay++;
               } else { ?>
