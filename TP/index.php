@@ -39,6 +39,9 @@ En fonction des choix, afficher un calendrier comme celui-ci : <br>
 <!-- création du tableau des jours fériés fixes -->
 <?php $tabDays = crTablePublicHolidayFix(); ?>
 
+<!-- Lien sur corrigé -->
+<a href="index_cor.php">Lien vers corrigé</a>
+
 <form action="" method="post">
   <div class="divForm">
     <div class="formMonth">
@@ -106,6 +109,7 @@ En fonction des choix, afficher un calendrier comme celui-ci : <br>
   if ($showCalendar) {
     $nbDaysInMonth = cal_days_in_month(CAL_GREGORIAN, $myMonth, $myYear);
     $firstDayMonth = getdate(strtotime($myMonth . "/01/" . $myYear))["wday"];
+    // $firstDayMonth = date("w", strtotime($myMonth . "/01/" . $myYear));
 
     setlocale(LC_TIME, ["fr"], ["fra"], ["fr_FR"]);
     $monthFrench = strftime("%B", strtotime($myMonth . "/01/" . $myYear));
@@ -151,7 +155,7 @@ En fonction des choix, afficher un calendrier comme celui-ci : <br>
             for ($i=0; $i<7; $i++){
               $dayPublicHoliday = isPublicHoliday($ctDay, $myMonth, $myYear, $tabDays);
               // empty cells
-              if ((($i < $firstDayMonth - 1) && ($nbRow==1)) || ($ctDay>$nbDaysInMonth)){ ?>
+              if ((($i < $firstDayMonth - 1) && ($nbRow == 1)) || ($ctDay > $nbDaysInMonth)){ ?>
                 <td class = "tabCellEmpty"></td>
               <?php }elseif ( $dayPublicHoliday <> "non férié") { ?>
                 <td class = "tabCellPublicHoliday"><?= $ctDay . " " . $dayPublicHoliday?></td>

@@ -7,7 +7,7 @@
   <hr>
   <p class="topicTitle">Résultats</p>
 
-  <?php setlocale(LC_TIME, ["fr"], ["fra"], ["fr_FR"], ["french"], ["fr_FR.utf8"]); ?>
+  <?php setlocale(LC_TIME, ["fr"], ["fra"], ["fr_FR"], ["french"], ["fra.UTF8"]); ?>
   <p>Date courante + 20 jours : <?= utf8_encode(strftime("%A %e %B %Y", strtotime("+20 days"))) ?></p>
 
   <!-- méthode objet -->
